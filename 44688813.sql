@@ -42,6 +42,8 @@ CHECK (END_TIME > START_TIME);
 ALTER TABLE SERVICE_HISTORY_DETAIL ADD CONSTRAINT  CK_SERVICE_DATE  
 CHECK (EXTRACT(YEAR FROM END_TIME) < 2018); 
 
+commit;
+
 --########################################################################################
 
 -- Task 2: Triggers
@@ -129,6 +131,8 @@ BEGIN
     END;
 /
 
+commit;
+
 -- d)
 
 INSERT INTO CUSTOMERS (F_NAME, L_NAME, DOB)
@@ -137,7 +141,7 @@ VALUES (‘Luke’, ‘Cheung’, ‘08-OCT-1996’);
 INSERT INTO SERVICE_HISTORY (DOG_ID, STORE_ID, FINISHED)
 VALUES (1234, 30, 'F');
 
-
+commit;
 
 --########################################################################################
 
@@ -169,7 +173,7 @@ SERVICE_HISTORY.SERVICE_ID = SERVICE_HISTORY_DETAIL.SERVICE_ID AND
 SERVICE_HISTORY_DETAIL.SERVICE_NAME = SERVICES.SERVICE_NAME
 GROUP BY DOG_BREED;
 
-
+commit;
 --########################################################################################
 
 -- Task 4: Function Based Indexes
@@ -199,6 +203,8 @@ WHERE ROWNUM=1;
 
 CREATE INDEX SUBTRACT_START_END ON SERVICE_HISTORY_DETAIL(START_TIME-END_TIME);
 
+commit;
+
 --########################################################################################
 
 -- Task 5: Bitmap Indexing
@@ -213,7 +219,7 @@ GROUP BY SERVICE_NAME;
 
 CREATE BITMAP INDEX BIDX_SERVICE ON SERVICE_HISTORY_DETAIL(SERVICE_NAME);
 
-
+commit;
 
 --########################################################################################
 
